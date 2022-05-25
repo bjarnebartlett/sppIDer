@@ -2,7 +2,7 @@
 options(stringAsFactors=FALSE)
 require(ggplot2)
 args <- commandArgs(TRUE)
-strainName <- args[1]
+strainName <- "MT-10-1"
 
 ################################################################
 # This script makes plots of percent mapped reads and MQ
@@ -13,7 +13,7 @@ strainName <- args[1]
 ################################################################
 
 # docker vars
-workingDir <- "/tmp/sppIDer/working/"
+workingDir <- "/Users/bjarne/Documents/GitHub/sppIDer/scripts/"
 #workingDir <- ""
 
 #Read in data and determine species
