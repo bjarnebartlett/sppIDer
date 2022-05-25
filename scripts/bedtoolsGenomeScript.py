@@ -13,11 +13,8 @@ import argparse, multiprocessing, sys, re, subprocess, time
 #
 ################################################################
 
-parser = argparse.ArgumentParser(description="Run full sppIDer")
+parser = argparse.ArgumentParser(description="Run bedtools sppider part")
 parser.add_argument('--out', help="Output prefix, required", required=True)
-parser.add_argument('--ref', help="Reference Genome, required", required=True)
-parser.add_argument('--r1', help="Read1, required", required=True)
-parser.add_argument('--r2', help="Read2, optional")
 parser.add_argument('--byBP', help="Calculate coverage by basepair, optional, DEFAULT, can't be used with -byGroup", dest='bed', action='store_true')
 parser.add_argument('--byGroup', help="Calculate coverage by chunks of same coverage, optional, can't be used with -byBP", dest='bed', action='store_false')
 parser.set_defaults(bed=True)
@@ -29,9 +26,6 @@ workingDir = "/tmp/sppIDer/working/"
 numCores = str(multiprocessing.cpu_count())
 
 outputPrefix = args.out
-refGen=args.ref
-read1Name = args.r1
-if args.r2: read2Name = args.r2
 start = time.time()
 def calcElapsedTime( endTime ):
     trackedTime = str()
@@ -63,9 +57,6 @@ def calcElapsedTime( endTime ):
 
 trackerOut = open(workingDir + outputPrefix + "_sppIDerRun.info", 'w')
 trackerOut.write("outputPrefix="+args.out+"\n")
-trackerOut.write("ref="+refGen+"\n")
-trackerOut.write("read1=" + read1Name + "\n")
-if args.r2: trackerOut.write("read2=" + read2Name + "\n")
 if args.bed == False:
     trackerOut.write("coverage analysis option =  by coverage groups, bedgraph format -bga\n")
 else: trackerOut.write("coverage analysis option = by each base pair -d\n")
